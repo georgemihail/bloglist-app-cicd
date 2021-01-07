@@ -34,7 +34,7 @@ jobs:
           heroku_email: "formyowndocuments@gmail.com"
           appdir: "bloglist-backend"
           env_file: "/.env"
-          healthcheck: "https://cicd-fullstack-project.herokuapp.com"
+          healthcheck: "https://cicd-fullstack-project.herokuapp.com/version"
           checkstring: "1"
   #     - uses: 8398a7/action-slack@v3
   #       with:
