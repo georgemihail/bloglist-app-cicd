@@ -36,40 +36,40 @@ jobs:
           env_file: "/.env"
           healthcheck: "https://cicd-fullstack-project.herokuapp.com/version"
           checkstring: "1"
-  #     - uses: 8398a7/action-slack@v3
-  #       with:
-  #         status: ${{ job.status }}
-  #         fields: repo,message,commit,author,action,took
-  #       env:
-  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  #       if: ${{ (github.event_name == 'push') && failure() }}
-  #     - uses: 8398a7/action-slack@v3
-  #       with:
-  #         status: custom
-  #         fields: commit,author,took
-  #         custom_payload: |
-  #           {
-  #             username: 'github_action',
-  #             attachments: [{
-  #               color: 'good',
-  #               text: `a new version was deployed to https://cicd-fullstack-george.herokuapp.com (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build took ${process.env.AS_TOOK}`,
-  #             }]
-  #           }
-  #       env:
-  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  #       if: ${{ (github.event_name == 'push') && success() }}
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ (github.event_name == 'push') && failure() }}
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: commit,author,took
+          custom_payload: |
+            {
+              username: 'github_action',
+              attachments: [{
+                color: 'good',
+                text: `a new version was deployed to https://cicd-fullstack-project.herokuapp.com (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build took ${process.env.AS_TOOK}`,
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ (github.event_name == 'push') && success() }}
 
-  # tagging_action:
-  #   runs-on: ubuntu-18.04
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: '0'
-  #     - name: Bump version and push tag
-  #       if: ${{ (!contains( toJson(github.event.commits.*.message), '#skip')) && (github.event_name == 'push') }}
-  #       uses: anothrNick/github-tag-action@1.33.0
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         WITH_V: true
-  #         INITIAL_VERSION: "1.0.0"
-  #         DEFAULT_BUMP: "patch"
+  tagging_action:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        if: ${{ (!contains( toJson(github.event.commits.*.message), '#skip')) && (github.event_name == 'push') }}
+        uses: anothrNick/github-tag-action@1.33.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          INITIAL_VERSION: "1.0.0"
+          DEFAULT_BUMP: "patch"
