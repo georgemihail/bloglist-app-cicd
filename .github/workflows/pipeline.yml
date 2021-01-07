@@ -32,7 +32,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "cicd-fullstack-project"
           heroku_email: "formyowndocuments@gmail.com"
-          # appdir: "bloglist-backend"
+          appdir: "bloglist-backend"
           # healthcheck: "https://cicd-fullstack-george.herokuapp.com/version"
           # checkstring: "1"
   #     - uses: 8398a7/action-slack@v3
