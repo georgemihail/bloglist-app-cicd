@@ -21,7 +21,7 @@ jobs:
       - name: Install Front-end
         run: cd bloglist-frontend && npm install
       - name: lint
-        run: cd bloglist-backend && npm run eslint
+        run: cd bloglist-backend && npm run lint
       - name: build
         run: cd bloglist-backend && npm run build && mv build ../bloglist-backend/
       - name: test
