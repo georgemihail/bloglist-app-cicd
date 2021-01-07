@@ -12,7 +12,7 @@ const middleware = require('./utils/middleware')
 const testingRouter = require('./controllers/testing')
 
 
-
+app.use(express.static('build'))
 app.use(cors())
 app.use(express.json())
 
@@ -20,7 +20,6 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
 
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
-app.use(express.static('build'))
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/blogs', postsRouter)
