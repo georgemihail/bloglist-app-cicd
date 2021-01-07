@@ -25,6 +25,14 @@ app.use('/api/users', usersRouter)
 app.use('/api/blogs', postsRouter)
 app.use('/api/testing', testingRouter)
 
+app.get('/health', (_req, res) => {
+    res.send('ok')
+})
+  
+  app.get('/version', (_req, res) => {
+    res.send('1')
+})
+
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 

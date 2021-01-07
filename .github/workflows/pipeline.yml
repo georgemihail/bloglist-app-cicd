@@ -23,10 +23,7 @@ jobs:
       - name: lint
         run: cd bloglist-backend && npm run lint
       - name: build
-        run: cd bloglist-backend && npm run build:complete && ls -al
-      # - run: git config user.email "formy.radusilviu@gmail.com"
-      # - run: git config user.name "georgemihail"
-      # - run: git add -A && git commit -m "Updated code" 
+        run: cd bloglist-backend && npm run build:complete
       - name: test
         run: cd bloglist-backend && npm run test
       - uses: akhileshns/heroku-deploy@v3.8.8
@@ -37,8 +34,8 @@ jobs:
           heroku_email: "formyowndocuments@gmail.com"
           appdir: "bloglist-backend"
           env_file: "/.env"
-          # healthcheck: "https://cicd-fullstack-george.herokuapp.com/version"
-          # checkstring: "1"
+          healthcheck: "https://cicd-fullstack-project.herokuapp.com"
+          checkstring: "1"
   #     - uses: 8398a7/action-slack@v3
   #       with:
   #         status: ${{ job.status }}
