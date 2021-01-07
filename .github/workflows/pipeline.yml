@@ -1,0 +1,73 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Backend
+        run: cd bloglist-backend && npm install
+      - name: Install Front-end
+        run: cd bloglist-frontend && npm install
+      - name: lint
+        run: cd bloglist-backend && npm run eslint
+      - name: build
+        run: cd bloglist-backend && npm run build && mv build ../bloglist-backend/
+      - name: test
+        run: cd bloglist-backend && npm run test
+  #     - uses: akhileshns/heroku-deploy@v3.8.8
+  #       if: ${{ github.event_name == 'push' }}
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_app_name: "cicd-fullstack-george"
+  #         heroku_email: "formyowndocuments@gmail.com"
+  #         healthcheck: "https://cicd-fullstack-george.herokuapp.com/version"
+  #         checkstring: "1"
+  #     - uses: 8398a7/action-slack@v3
+  #       with:
+  #         status: ${{ job.status }}
+  #         fields: repo,message,commit,author,action,took
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  #       if: ${{ (github.event_name == 'push') && failure() }}
+  #     - uses: 8398a7/action-slack@v3
+  #       with:
+  #         status: custom
+  #         fields: commit,author,took
+  #         custom_payload: |
+  #           {
+  #             username: 'github_action',
+  #             attachments: [{
+  #               color: 'good',
+  #               text: `a new version was deployed to https://cicd-fullstack-george.herokuapp.com (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build took ${process.env.AS_TOOK}`,
+  #             }]
+  #           }
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  #       if: ${{ (github.event_name == 'push') && success() }}
+
+  # tagging_action:
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: '0'
+  #     - name: Bump version and push tag
+  #       if: ${{ (!contains( toJson(github.event.commits.*.message), '#skip')) && (github.event_name == 'push') }}
+  #       uses: anothrNick/github-tag-action@1.33.0
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         WITH_V: true
+  #         INITIAL_VERSION: "1.0.0"
+  #         DEFAULT_BUMP: "patch"
