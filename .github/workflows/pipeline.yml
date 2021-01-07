@@ -24,12 +24,9 @@ jobs:
         run: cd bloglist-backend && npm run lint
       - name: build
         run: cd bloglist-backend && npm run build:complete && ls -al
-      - run: git config user.email "formy.radusilviu@gmail.com"
-      - run: git config user.name "georgemihail"
-      - run: git add -A && git commit -m "Updated code" # <- Add this line
       - name: test
         run: cd bloglist-backend && npm run test
-      - uses: akhileshns/heroku-deploy@v3.8.8
+      - uses: akhileshns/heroku-deploy@v3.0.0
         if: ${{ github.event_name == 'push' }}
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
