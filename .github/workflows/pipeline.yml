@@ -24,6 +24,7 @@ jobs:
         run: cd bloglist-backend && npm run lint
       - name: build
         run: cd bloglist-backend && npm run build:complete && ls -al
+      - run: git add -A && git commit -m "Updated code" # <- Add this line
       - name: test
         run: cd bloglist-backend && npm run test
       - uses: akhileshns/heroku-deploy@v3.8.8
@@ -33,6 +34,7 @@ jobs:
           heroku_app_name: "cicd-fullstack-project"
           heroku_email: "formyowndocuments@gmail.com"
           appdir: "bloglist-backend"
+          env_file: "/.env"
           # healthcheck: "https://cicd-fullstack-george.herokuapp.com/version"
           # checkstring: "1"
   #     - uses: 8398a7/action-slack@v3
