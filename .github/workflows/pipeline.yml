@@ -26,14 +26,14 @@ jobs:
         run: cd bloglist-frontend && npm run build && rm -rf ../bloglist-backend/build && mv build ../bloglist-backend/
       - name: test
         run: cd bloglist-backend && npm run test
-  #     - uses: akhileshns/heroku-deploy@v3.8.8
-  #       if: ${{ github.event_name == 'push' }}
-  #       with:
-  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-  #         heroku_app_name: "cicd-fullstack-george"
-  #         heroku_email: "formyowndocuments@gmail.com"
-  #         healthcheck: "https://cicd-fullstack-george.herokuapp.com/version"
-  #         checkstring: "1"
+      - uses: akhileshns/heroku-deploy@v3.8.8
+        if: ${{ github.event_name == 'push' }}
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "cicd-fullstack-project"
+          heroku_email: "formyowndocuments@gmail.com"
+          # healthcheck: "https://cicd-fullstack-george.herokuapp.com/version"
+          # checkstring: "1"
   #     - uses: 8398a7/action-slack@v3
   #       with:
   #         status: ${{ job.status }}
