@@ -23,7 +23,7 @@ jobs:
       - name: lint
         run: cd bloglist-backend && npm run lint
       - name: build
-        run: cd bloglist-frontend && rm -rf build && npm run build && rm -rf ../bloglist-backend/build && mv build ../bloglist-backend/
+        run: cd bloglist-frontend && rm -rf build && npm run build && rm -rf ../bloglist-backend/build && mv build ../bloglist-backend/ && ls -a
       - name: test
         run: cd bloglist-backend && npm run test
       - uses: akhileshns/heroku-deploy@v3.8.8
