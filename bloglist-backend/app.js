@@ -28,8 +28,8 @@ app.use('/api/testing', testingRouter)
 app.get('/health', (_req, res) => {
     res.send('ok')
 })
-  
-  app.get('/version', (_req, res) => {
+
+app.get('/version', (_req, res) => {
     res.send('1')
 })
 
